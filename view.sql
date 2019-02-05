@@ -14,11 +14,10 @@ SELECT student, course, credits FROM Taken, Courses
 WHERE Taken.course = Courses.code
 AND grade != 'U'
 
-CREATE VIEW Registrations(student, course, status)
-    
-    
-    
-    
+CREATE VIEW Registrations(student, course, status) AS
+SELECT student, course, 'registered' AS status FROM Registered
+UNION
+SELECT student, course, 'waiting' AS status FROM WaitingList
     
     
     
