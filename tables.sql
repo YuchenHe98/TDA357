@@ -20,6 +20,7 @@ CREATE TABLE Courses (
 
 CREATE TABLE LimitedCourses (
     code TEXT primary KEY,
+    name TEXT NOT NULL,
 	seats int NOT NULL,
     FOREIGN KEY (code) REFERENCES Courses(code)
 );
@@ -65,7 +66,7 @@ CREATE TABLE RecommendedBranch(
     course TEXT,
 	branch TEXT,
 	program TEXT,
-    CONSTRAINT mandatory_branch_key PRIMARY KEY(course, branch, program),
+    CONSTRAINT recommended_branch_key PRIMARY KEY(course, branch, program),
 	FOREIGN KEY (course) REFERENCES Courses(code),
 	FOREIGN KEY (branch, program) REFERENCES Branches(name, program)
 );
@@ -85,18 +86,15 @@ CREATE TABLE Taken(
     CONSTRAINT taken_key PRIMARY KEY(course, student),
 	FOREIGN KEY (course) REFERENCES Courses(code),
     FOREIGN KEY (student) REFERENCES Students(idnr),
-    CONSTRAINT taken_key CHECK (grade IN ('3', '4', '5', 'U'))
+    CONSTRAINT taken_grade_check CHECK (grade IN ('3', '4', '5', 'U'))
 );
 
 CREATE TABLE WaitingList(
     student NUMERIC(10, 0),
 	course TEXT NOT NULL,
-	position timestamp NOT NULL,
+	position TEXT NOT NULL,
+    /* position timestamp NOT NULL, */
     CONSTRAINT waiting_list_key PRIMARY KEY(course, student),
 	FOREIGN KEY (course) REFERENCES LimitedCourses(code),
     FOREIGN KEY (student) REFERENCES Students(idnr)
 );
-
-
-
-

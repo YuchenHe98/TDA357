@@ -26,7 +26,7 @@ SELECT * FROM
     union
     SELECT idnr, MandatoryProgram.course FROM Students, MandatoryProgram
     WHERE Students.program = MandatoryProgram.program
-)
+) AS mustReadedCourses
 WHERE (student, course) NOT IN 
 (
     SELECT student, course FROM PassedCourses
@@ -37,9 +37,9 @@ WHERE (student, course) NOT IN
 CREATE VIEW PathToGraduation(student, totalCredits, mandatoryLeft, mathCredits, researchCredits, seminarCourses, qualified) AS
 SELECT idnr AS student, coalesce (totalcredits, 0) as totalcredits,  coalesce (mandatoryleft, 0) as mandatoryleft, coalesce (mathcredits, 0) as mathcredits, coalesce (researchcredits, 0) as researchcredits, coalesce (seminarcourses, 0) as seminarcourses,
 CASE 
-WHEN mandatoryleft > 0 THEN "f"
-WHEN idnr IN (SELECT student FROM StudentBranches) THEN "t"
-ELSE "f"
+WHEN mandatoryleft > 0 THEN FALSE
+WHEN idnr IN (SELECT student FROM StudentBranches) THEN TRUE
+ELSE FALSE
 
 END AS qualified FROM Students
 
@@ -60,7 +60,7 @@ Students.idnr = mandatorySub.student
 LEFT JOIN
 (
 SELECT student, SUM(credits) AS mathcredits FROM PassedCourses, Classified 
-WHERE PassedCourses.course = Classified.course AND Classified.classification = "math" GROUP BY student
+WHERE PassedCourses.course = Classified.course AND Classified.classification = 'math' GROUP BY student
 ) AS mathSub
 
 ON idnr = mathSub.student
@@ -68,7 +68,7 @@ ON idnr = mathSub.student
 LEFT JOIN
 (
 SELECT student, SUM(credits) AS researchcredits FROM PassedCourses, Classified 
-WHERE PassedCourses.course = Classified.course AND Classified.classification = "research" GROUP BY student
+WHERE PassedCourses.course = Classified.course AND Classified.classification = 'research' GROUP BY student
 ) AS researchSub
 
 ON idnr = researchSub.student
@@ -76,7 +76,7 @@ ON idnr = researchSub.student
 LEFT JOIN
 (
 SELECT student, COUNT(credits) AS seminarcourses FROM PassedCourses, Classified 
-WHERE PassedCourses.course = Classified.course AND Classified.classification = "seminar" GROUP BY student
+WHERE PassedCourses.course = Classified.course AND Classified.classification = 'seminar' GROUP BY student
 ) AS seminarSub
 
-ON idnr = seminarSub.student
+ON idnr = seminarSub.student;

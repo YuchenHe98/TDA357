@@ -1,0 +1,1 @@
+All the tests passed but I am confused about the timestamps in the table WaitingList. Insert.sql provided on the course website inserts two rows with the same position "2", and therefore in table.sql we use TEXT as the type for position. The proper position type (timestamp) is commented out. We are not sure which one is required but we believe that timestamp is better.  
