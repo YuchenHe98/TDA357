@@ -1,0 +1,95 @@
+﻿employ(idnr,name)
+
+
+department(name,code)
+
+
+student(idnr,name)
+
+
+workAt(employ,department)
+employ -> employ.idnr
+department -> department.name
+
+
+program(name,code)
+
+
+hosted(program,department)
+program -> program.name
+pepartment -> department.name
+
+
+branch(name,program)
+program -> program.name
+
+
+course(code)
+
+
+mandatoryCourses(program,cours)
+program ->  program.name
+course -> course.code
+AMandatoryCourses(branch,course)
+branch -> branch.name
+course -> course.code
+
+
+givenBy(department,course)
+department -> department.name
+course -> course.code
+
+
+limtedcourses(code)
+code -> course.code
+
+
+bleongToP(student,program)
+student -> student.idnr
+program ->program.code
+
+
+chose(year,student,branch)
+student -> student.idnr
+branch -> branch.name
+
+
+registered(taken,administrator,prerequisites,student,course) 
+student ->student.idnr
+course -> course.code
+
+
+classified(name,course)
+course -> course.code
+
+
+classification(name)
+name ->classified.name
+
+
+
+
+waitingList(position)
+
+
+waiting(position,student,course)
+position ->waitingList.position
+student -> student.idnr
+course ->course.code
+
+
+
+
+passedCoures(credited,student,course)
+student -> student.idnr
+course ->course.code
+
+
+graduateStudent(student,course,passedCourses,branch,program)
+
+
+student ->student.idnr
+course ->course.code
+branch ->branch.name
+program -> program.code
+passedCourses ->passedCourses.credited
