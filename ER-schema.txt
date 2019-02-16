@@ -1,0 +1,139 @@
+﻿employ(_idnr_,name)
+
+
+
+
+department(_name_,_code_)
+
+
+
+
+student(_idnr_,name)
+
+
+
+
+workAt(_employ_,_department_)
+employ -> employ.idnr
+department -> department.name
+
+
+
+
+program(_name_,code)
+
+
+
+
+hosted(_program_,_department_)
+program -> program.name
+pepartment -> department.name
+
+
+
+
+branch(_name_,_program_)
+program -> program.name
+
+
+
+
+course(_code_)
+
+
+
+
+mandatoryCourses(_program_,_cours_)
+program ->  program.name
+course -> course.code
+AMandatoryCourses(_branch_,_course_)
+branch -> branch.name
+course -> course.code
+
+
+
+
+givenBy(_department_,_course_)
+department -> department.name
+course -> course.code
+
+
+
+
+limtedcourses(_code_)
+code -> course.code
+
+
+
+
+bleongToP(_student_,program)
+student -> student.idnr
+program ->program.code
+
+
+
+
+chose(year,_student_,_branch_)
+student -> student.idnr
+branch -> branch.name
+
+
+
+
+registered(taken,administrator,prerequisites,_student_,_course_) 
+student ->student.idnr
+course -> course.code
+
+
+
+
+classified(_name_,_course_)
+course -> course.code
+
+
+
+
+classification(_name_)
+name ->classified.name
+
+
+
+
+
+
+
+
+waitingList(_position_)
+
+
+
+
+waiting(_position_,_student_,_course_)
+position ->waitingList.position
+student -> student.idnr
+course ->course.code
+
+
+
+
+
+
+
+
+passedCoures(credited,_student_,_course_)
+student -> student.idnr
+course ->course.code
+
+
+
+
+graduateStudent(_student_,_course_,passedCourses,_branch_,program)
+
+
+
+
+student ->student.idnr
+course ->course.code
+branch ->branch.name
+program -> program.code
+passedCourses ->passedCourses.credited
