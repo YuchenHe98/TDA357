@@ -13,26 +13,4 @@ IDNR takenCode -> grade
 waitingCode position -> IDNR
 code ->> classification
 code ->> prerequisite
-program ->> branch
-program branch ->> branchMandatoryCode
-program ->> programMandatoryCode
-program branch ->> branchRecommendedCode
 
-
-/*
-programName programAbbreviation departmentName departmentAbbreviation IDNR studentName code courseName grade position branch program credit classification prerequisite  takenCode registeredCode waitingCode
-
-programName -> programAbbreviation
-departmentName -> departmentAbbreviation
-IDNR -> studentName 
-code -> courseName
-code -> credit
-takenCode -> code
-registeredCode -> code
-waitingCode -> code
-IDNR waitingCode -> position
-IDNR takenCode -> grade
-waitingCode position -> IDNR
-code ->> classification
-code ->> prerequisite
-*/

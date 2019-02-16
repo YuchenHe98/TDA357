@@ -4,8 +4,15 @@ Programs(_name_, abbreviation)
 Departments(_name_, abbreviation)
     UNIQUE abbreviation
 
+Hosts(_department_, _program_)
+    department -> Department.name
+    program -> Programs.name
+
 Students(_idnr_, name, login, program)
     program -> Programs.name
+
+Employees(_idnr_, name, login, department)
+    department -> Departments.name
 
 Branches(_name_, _program_)
     program -> Programs.name
@@ -55,4 +62,3 @@ WaitingList(_student_, _course_, position)
     student -> Student.idnr
     course -> LimitedCourses.code
     UNIQUE (position, course)
-

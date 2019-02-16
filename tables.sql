@@ -1,8 +1,32 @@
+CREATE TABLE Programs (
+    name TEXT PRIMARY KEY,
+    abbreviation TEXT NOT NULL,
+    UNIQUE(abbreviation)
+);
+
+CREATE TABLE Departments (
+    name TEXT PRIMARY KEY,
+    abbreviation TEXT NOT NULL,
+    UNIQUE(abbreviation)
+);
+
+CREATE TABLE Hosts (
+    department TEXT NOT NULL REFERENCES Departments(name),
+    program TEXT NOT NULL REFERENCES Programs(name)
+);
+
 CREATE TABLE Students (
     idnr NUMERIC(10, 0) PRIMARY KEY,
     name TEXT NOT NULL,
     login TEXT NOT NULL,
-	program TEXT NOT NULL
+	program TEXT NOT NULL REFERENCES Programs(name)
+);
+
+CREATE TABLE Employees (
+    idnr NUMERIC(10, 0) PRIMARY KEY,
+    name TEXT NOT NULL,
+    login TEXT NOT NULL,
+	department TEXT NOT NULL REFERENCES Departments(name)
 );
 
 CREATE TABLE Branches (
@@ -13,14 +37,13 @@ CREATE TABLE Branches (
 
 CREATE TABLE Courses (
     code TEXT PRIMARY KEY,
-	program TEXT NOT NULL,
+	name TEXT NOT NULL,
 	credits NUMERIC(10, 1) NOT NULL,
-	department TEXT NOT NULL
+	department TEXT NOT NULL REFERENCES Departments(name)
 );
 
 CREATE TABLE LimitedCourses (
     code TEXT primary KEY,
-    name TEXT NOT NULL,
 	seats int NOT NULL,
     FOREIGN KEY (code) REFERENCES Courses(code)
 );
@@ -96,5 +119,6 @@ CREATE TABLE WaitingList(
     /* position timestamp NOT NULL, */
     CONSTRAINT waiting_list_key PRIMARY KEY(course, student),
 	FOREIGN KEY (course) REFERENCES LimitedCourses(code),
-    FOREIGN KEY (student) REFERENCES Students(idnr)
+    FOREIGN KEY (student) REFERENCES Students(idnr),
+    CONSTRAINT course_position UNIQUE(course, position)
 );

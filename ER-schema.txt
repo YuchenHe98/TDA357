@@ -8,13 +8,13 @@ Programs(_name_, abbreviation)
 
 Hosts(_department_, _program_)
     department -> Department.name
-    program -> Program.name
+    program -> Programs.name
 
 Students(_idnr_, name, login, program)
-    program -> Program.name
+    program -> Programs.name
 
 Branches(_name_, _program_)
-    program -> Program.name
+    program -> Programs.name
 
 WorksFor(_employee_,_department_)	
     employee -> Employees.idnr
@@ -31,7 +31,7 @@ MandatoryProgram(_course_, _program_)
     program -> Programs.name
 
 MandatoryBranch(_course_, _branch_, _program_)
-    course -> Course.code
+    course -> Courses.code
     (branch, program) -> Branches.(name, program)
 
 GivenBy(_department_,_course_)
@@ -39,7 +39,7 @@ GivenBy(_department_,_course_)
     course -> Courses.code
 
 LimitedCourse(_code_, seats)
-    code -> Course.code
+    code -> Courses.code
 
 BelongToProgram(_student_, program)
     student -> Students.idnr
@@ -60,26 +60,13 @@ WaitingList(_student_, _course_, position)
     course -> LimitedCourse.code
     UNIQUE (position, course)
 
-
-
-
-
-
-// need?
-PassedCourses(credited,_student_,_course_)
-student -> student.idnr
-course ->course.code
-
-
-
+PassedCourses(_student_, _course_, credit)
+    student -> students.idnr
+    course -> courses.code
 
 graduateStudent(_student_,_course_,passedCourses,_branch_,program)
-
-
-
-
-student ->student.idnr
-course ->course.code
-branch ->branch.name
-program -> program.code
-passedCourses ->passedCourses.credited
+    student -> Students.idnr
+    course -> Courses.code
+    branch -> Branches.name
+    program -> Programs.code
+    passedCourses -> PassedCourses.course
