@@ -1,78 +1,114 @@
-employ(idnr,name)
+employ(_idnr_,name)
 
 
-department(name,code)
 
 
-student(idnr,name)
+department(_name_,_code_)
 
 
-workAt(employ,department)
+
+
+student(_idnr_,name)
+
+
+
+
+workAt(_employ_,_department_)
 employ -> employ.idnr
 department -> department.name
 
 
-program(name,code)
 
 
-hosted(program,department)
+program(_name_,code)
+
+
+
+
+hosted(_program_,_department_)
 program -> program.name
 pepartment -> department.name
 
 
-branch(name,program)
+
+
+branch(_name_,_program_)
 program -> program.name
 
 
-course(code)
 
 
-mandatoryCourses(program,cours)
+course(_code_)
+
+
+
+
+mandatoryCourses(_program_,_cours_)
 program ->  program.name
 course -> course.code
-AMandatoryCourses(branch,course)
+AMandatoryCourses(_branch_,_course_)
 branch -> branch.name
 course -> course.code
 
 
-givenBy(department,course)
+
+
+givenBy(_department_,_course_)
 department -> department.name
 course -> course.code
 
 
-limtedcourses(code)
+
+
+limtedcourses(_code_)
 code -> course.code
 
 
-bleongToP(student,program)
+
+
+bleongToP(_student_,program)
 student -> student.idnr
 program ->program.code
 
 
-chose(year,student,branch)
+
+
+chose(year,_student_,_branch_)
 student -> student.idnr
 branch -> branch.name
 
 
-registered(taken,administrator,prerequisites,student,course) 
+
+
+registered(taken,administrator,prerequisites,_student_,_course_) 
 student ->student.idnr
 course -> course.code
 
 
-classified(name,course)
+
+
+classified(_name_,_course_)
 course -> course.code
 
 
-classification(name)
+
+
+classification(_name_)
 name ->classified.name
 
 
 
 
-waitingList(position)
 
 
-waiting(position,student,course)
+
+
+waitingList(_position_)
+
+
+
+
+waiting(_position_,_student_,_course_)
 position ->waitingList.position
 student -> student.idnr
 course ->course.code
@@ -80,12 +116,20 @@ course ->course.code
 
 
 
-passedCoures(credited,student,course)
+
+
+
+
+passedCoures(credited,_student_,_course_)
 student -> student.idnr
 course ->course.code
 
 
-graduateStudent(student,course,passedCourses,branch,program)
+
+
+graduateStudent(_student_,_course_,passedCourses,_branch_,program)
+
+
 
 
 student ->student.idnr
