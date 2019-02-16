@@ -1,4 +1,4 @@
-﻿employ(idnr,name)
+employ(idnr,name)
 
 
 department(name,code)
