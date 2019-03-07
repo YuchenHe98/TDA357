@@ -1,0 +1,62 @@
+Department(_name_,_code_ ,abbreviation)
+    UNIQUE abbreviation
+
+Program(_name_,code, abbreviation)
+    UNIQUE abbreviation
+
+Hosted(_department_, _program_)
+    department -> Department.name
+    program -> Programs.name
+
+Students(_idnr_, name)
+
+Branches(_name_)
+
+BelongTo(_program_,_brnache_)
+	program -> Program.name
+	branch -> Branch.name
+
+Course(_code_)
+
+GivenBy(_course_,_department_)
+	course -> Course.code
+	department ->department.name
+
+MandatoryCoureses(_course_, _program_)
+    courses -> Courses.code
+    program -> Programs.name
+
+AMandatoryCourses(_course_, _branch_)
+ 	course -> Courses.code
+	branch -> Branch.name	
+
+BelongToP(_student_,_program_)
+	student -> Student.idnr
+	program -> Program.name
+
+LimitedCourse(_code_, seats)
+    code -> Courses.code
+
+
+Classification (_name_)
+
+
+Classified (_classification_,_course_)
+	classification -> Classification.name
+	course -> Coures.code
+
+Registering(_student_, _course_) 
+    student -> Students.idnr
+    course -> Courses.code
+
+
+WaitingList(_student_, _course_, position)
+    student -> Student.idnr
+    course -> LimitedCourse.code
+    UNIQUE (position, course)
+
+PassedCourses(_student_, _course_, credit)
+    student -> students.idnr
+    course -> courses.code
+
+
