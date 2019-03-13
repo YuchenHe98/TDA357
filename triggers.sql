@@ -1,8 +1,10 @@
 DROP TRIGGER put_into_waiting ON registrations;
 DROP TRIGGER update_waiting ON registrations;
-DROP FUNCTION manage_registered();
-DROP FUNCTION manage_waiting_list();
-DROP FUNCTION isfull(TEXT);
+DROP FUNCTION manage_registered;
+DROP FUNCTION manage_waiting_list;
+DROP FUNCTION isFull;
+
+
 
 /* Given a course code, check whether it's full. */   
 CREATE FUNCTION isFull(TEXT)
@@ -10,7 +12,7 @@ CREATE FUNCTION isFull(TEXT)
 	
 BEGIN
 	RETURN CASE WHEN
-	NOT EXISTS (SELECT seats FROM LimitedCourses WHERE code = $1) OR
+	EXISTS (SELECT seats FROM LimitedCourses WHERE code = $1) AND
         (SELECT count(*) FROM Registered WHERE course = $1) 
 	>= (SELECT seats FROM LimitedCourses WHERE code = $1)
 	THEN 1
@@ -75,4 +77,7 @@ CREATE TRIGGER update_waiting
     INSTEAD OF DELETE ON registrations
     FOR EACH ROW
     EXECUTE PROCEDURE manage_waiting_list();
+
+
+
 
